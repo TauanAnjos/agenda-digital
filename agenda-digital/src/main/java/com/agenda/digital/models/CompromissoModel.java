@@ -111,6 +111,6 @@ public class CompromissoModel {
     }
 
     public CompromissoDtoResponse toDtoResponse(){
-        return new CompromissoDtoResponse(this.titulo, this.descricao, this.data_hora, this.getUsuario().toDtoResponse(), this.categoria.toDtoResponse(), this.status);
+        return new CompromissoDtoResponse(this.titulo, this.descricao, this.data_hora, this.getUsuario().toDtoResponse(), this.categoria.toDtoResponse(), this.status, this.tarefas.stream().map(TarefaModel::toDtoResponse).toList());
     }
 }
