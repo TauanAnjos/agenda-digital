@@ -1,6 +1,7 @@
 package com.agenda.digital.models;
 
 import com.agenda.digital.enums.Status;
+import com.agenda.digital.rest.dtos.TarefaDtoResponse;
 import jakarta.persistence.*;
 
 @Entity
@@ -57,5 +58,9 @@ public class TarefaModel {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public TarefaDtoResponse toDtoResponse(){
+        return new TarefaDtoResponse(this.descricao, this.status);
     }
 }
