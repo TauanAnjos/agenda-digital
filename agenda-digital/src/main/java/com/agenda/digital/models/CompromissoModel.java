@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_compromisso")
@@ -21,6 +23,10 @@ public class CompromissoModel {
     @JoinColumn(name = "usuario_id")
     @JsonIgnoreProperties("compromissos")
     private UserModel usuario;
+    @OneToMany(mappedBy = "compromisso", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("compromisso")
+    private List<TarefaModel> tarefas = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private CategoriaModel categoria;
@@ -78,6 +84,14 @@ public class CompromissoModel {
 
     public void setUsuario(UserModel usuario) {
         this.usuario = usuario;
+    }
+
+    public List<TarefaModel> getTarefas() {
+        return tarefas;
+    }
+
+    public void setTarefas(List<TarefaModel> tarefas) {
+        this.tarefas = tarefas;
     }
 
     public CategoriaModel getCategoria() {

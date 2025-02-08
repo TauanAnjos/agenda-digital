@@ -19,11 +19,11 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: AgendaDigital
+      POSTGRES_DB: agendadigital
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "postgres", "-d", "AgendaDigital" ]
+      test: [ "CMD", "pg_isready", "-U", "postgres", "-d", "agendadigital" ]
       interval: 10s
       retries: 5
       start_period: 5s

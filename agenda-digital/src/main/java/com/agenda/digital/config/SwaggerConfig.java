@@ -25,7 +25,7 @@ public class SwaggerConfig {
                                 .url("http://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Repositório GitHub")
-                        .url("https://github.com/TauanAnjos"))
+                        .url("https://github.com/TauanAnjos/agenda-digital"))
                 // Configura o suporte ao esquema de autenticação via token Bearer
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()
