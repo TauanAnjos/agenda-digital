@@ -53,6 +53,16 @@ public class CompromissoController extends BaseController {
         return ResponseEntity.status(HttpStatus.OK).body(compromissoService.BuscarCompromissoPorId(userId, compromissoId));
     }
     @Operation(
+            summary = "Atualizar por ID",
+            description = "Endpoint para batualizar compromisso por ID.",
+            tags = {"Compromissos"}
+    )
+    @PutMapping("/{id}")
+    public ResponseEntity<CompromissoDtoResponse> atualizarCompromissoPorId(HttpServletRequest request, @PathVariable("id")Long compromisso_id, @RequestBody CompromissoDtoRequest compromissoDtoRequest){
+        Long userId = getUserModelSession(request).getId();
+        return ResponseEntity.status(HttpStatus.OK).body(compromissoService.atualizarCompromisso(userId, compromisso_id, compromissoDtoRequest));
+    }
+    @Operation(
             summary = "Delete por ID",
             description = "Endpoint para deletar compromisso através do ID.",
             tags = {"Compromissos"}
