@@ -36,4 +36,15 @@ public class TarefaController extends BaseController{
         return ResponseEntity.status(HttpStatus.OK).body(tarefaService.atualizarTarefa(userId,compromissoId, tarefaId, tarefaDtoRquest));
 
     }
+    @Operation(
+            summary = "Deletar Tarefa",
+            description = "Endpoint para deletar tarefa por ID.",
+            tags = {"Tarefas"}
+    )
+    @DeleteMapping("/{compromissoId}/{tarefaId}")
+    public ResponseEntity<String> deletaTarefaPorId(HttpServletRequest request, @PathVariable("compromissoId")Long compromissoId, @PathVariable("tarefaId")Long tarefaId){
+        Long userId = getUserModelSession(request).getId();
+        tarefaService.deletarTarefa(userId, compromissoId, tarefaId);
+        return ResponseEntity.status(HttpStatus.OK).body("Tarefa deletada com sucesso.");
+    }
 }
