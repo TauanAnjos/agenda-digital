@@ -33,7 +33,7 @@ public class TarefaService {
             throw new RuntimeException("Erro ao criar tarefa: " + e.getMessage(), e);
         }
     }
-
+    @Transactional
     public TarefaDtoResponse atualizarTarefa(Long userId, Long compromissoId, Long tarefaId, TarefaDtoRquest tarefaDtoRquest){
         CompromissoModel compromissoModel = compromissoRepository.findById(compromissoId).orElseThrow(() -> new RuntimeException("Compromisso não encontrado"));
         if (!compromissoModel.getUsuario().getId().equals(userId)){
@@ -42,5 +42,14 @@ public class TarefaService {
         TarefaModel tarefaModel = tarefaRepository.findById(tarefaId).orElseThrow(() -> new RuntimeException("Tarefa não encontrada."));
         tarefaModel.atualizarCom(tarefaDtoRquest);
         return tarefaRepository.save(tarefaModel).toDtoResponse();
+    }
+
+    public void deletarTarefa(Long userId, Long compromissoId, Long tarefaId){
+        CompromissoModel compromissoModel = compromissoRepository.findById(compromissoId).orElseThrow(()-> new RuntimeException("Compromisso não encontrado."));
+        if (!compromissoModel.getUsuario().getId().equals(userId)){
+            throw new RuntimeException("Essa tarefa não pode ser deletada. A tarefa não pertence ao usuário!");
+        }
+        TarefaModel tarefaModel = tarefaRepository.findById(tarefaId).orElseThrow(() -> new RuntimeException("Tarefa nã encontrada."));
+        tarefaRepository.delete(tarefaModel);
     }
 }
