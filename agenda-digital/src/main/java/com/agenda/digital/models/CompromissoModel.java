@@ -1,6 +1,7 @@
 package com.agenda.digital.models;
 
 import com.agenda.digital.enums.Status;
+import com.agenda.digital.rest.dtos.CompromissoDtoRequest;
 import com.agenda.digital.rest.dtos.CompromissoDtoResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -112,5 +113,12 @@ public class CompromissoModel {
 
     public CompromissoDtoResponse toDtoResponse(){
         return new CompromissoDtoResponse(this.titulo, this.descricao, this.data_hora, this.getUsuario().toDtoResponse(), this.categoria.toDtoResponse(), this.status, this.tarefas.stream().map(TarefaModel::toDtoResponse).toList());
+    }
+    public void atualizarCom(CompromissoDtoRequest compromissoDtoRequest, CategoriaModel categoria) {
+        this.titulo = compromissoDtoRequest.titulo();
+        this.descricao = compromissoDtoRequest.descricao();
+        this.data_hora = compromissoDtoRequest.data_hora();
+        this.status = compromissoDtoRequest.status();
+        this.categoria = categoria;
     }
 }
