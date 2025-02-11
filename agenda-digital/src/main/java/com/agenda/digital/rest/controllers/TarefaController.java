@@ -25,4 +25,15 @@ public class TarefaController extends BaseController{
         Long userId = getUserModelSession(request).getId();
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.criarTarefa(userId, compromissoId, tarefaDtoRquest.toModel()));
     }
+    @Operation(
+            summary = "Atualizar Tarefa",
+            description = "Endpoint para atualizar tarefa por ID.",
+            tags = {"Tarefas"}
+    )
+    @PutMapping("/{compromissoId}/{tarefaId}")
+    public ResponseEntity<TarefaDtoResponse> atualizarTarefaPorId(HttpServletRequest request,@PathVariable("compromissoId")Long compromissoId, @PathVariable("tarefaId")Long tarefaId, @RequestBody TarefaDtoRquest tarefaDtoRquest){
+        Long userId = getUserModelSession(request).getId();
+        return ResponseEntity.status(HttpStatus.OK).body(tarefaService.atualizarTarefa(userId,compromissoId, tarefaId, tarefaDtoRquest));
+
+    }
 }
