@@ -55,6 +55,16 @@ public class CompromissoService {
         }
     }
     @Transactional
+    public CompromissoDtoResponse atualizarCompromisso(Long userId, Long compromisso_id, CompromissoDtoRequest compromissoDtoRequest){
+        CompromissoModel compromissoModel = compromissoRepository.findById(compromisso_id).orElseThrow(() -> new RuntimeException("Compromisso não encontrado."));
+        if(!compromissoModel.getUsuario().getId().equals(userId)){
+            throw new RuntimeException("Esse compromisso não pertence ao usário.");
+        }
+        CategoriaModel categoriaModel = categoriaRepository.findById(compromissoDtoRequest.categoriaId()).orElseThrow(() -> new RuntimeException("Catégoria não encontrada."));
+        compromissoModel.atualizarCom(compromissoDtoRequest, categoriaModel);
+        return compromissoRepository.save(compromissoModel).toDtoResponse();
+    }
+    @Transactional
     public void deleteCompromissoPorId(Long userId, Long compromissoId ){
         CompromissoModel compromissoModel = compromissoRepository.findById(compromissoId).orElseThrow(() -> new RuntimeException("Compromisso não encontrado."));
         if(!compromissoModel.getUsuario().getId().equals(userId)){
