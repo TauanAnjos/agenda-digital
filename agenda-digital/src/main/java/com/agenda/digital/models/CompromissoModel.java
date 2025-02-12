@@ -19,7 +19,7 @@ public class CompromissoModel {
     private Long id;
     private String titulo;
     private String descricao;
-    private LocalDateTime data_hora;
+    private LocalDateTime dataHora;
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     @JsonIgnoreProperties("compromissos")
@@ -37,11 +37,11 @@ public class CompromissoModel {
     public CompromissoModel() {
     }
 
-    public CompromissoModel(Long id, String titulo, String descricao, LocalDateTime data_hora, UserModel usuario, CategoriaModel categoria, Status status) {
+    public CompromissoModel(Long id, String titulo, String descricao, LocalDateTime dataHora, UserModel usuario, CategoriaModel categoria, Status status) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
-        this.data_hora = data_hora;
+        this.dataHora = dataHora;
         this.usuario = usuario;
         this.categoria = categoria;
         this.status = status;
@@ -72,11 +72,11 @@ public class CompromissoModel {
     }
 
     public LocalDateTime getData_hora() {
-        return data_hora;
+        return dataHora;
     }
 
     public void setData_hora(LocalDateTime data_hora) {
-        this.data_hora = data_hora;
+        this.dataHora = data_hora;
     }
 
     public UserModel getUsuario() {
@@ -112,12 +112,12 @@ public class CompromissoModel {
     }
 
     public CompromissoDtoResponse toDtoResponse(){
-        return new CompromissoDtoResponse(this.titulo, this.descricao, this.data_hora, this.getUsuario().toDtoResponse(), this.categoria.toDtoResponse(), this.status, this.tarefas.stream().map(TarefaModel::toDtoResponse).toList());
+        return new CompromissoDtoResponse(this.titulo, this.descricao, this.dataHora, this.getUsuario().toDtoResponse(), this.categoria.toDtoResponse(), this.status, this.tarefas.stream().map(TarefaModel::toDtoResponse).toList());
     }
     public void atualizarCom(CompromissoDtoRequest compromissoDtoRequest, CategoriaModel categoria) {
         this.titulo = compromissoDtoRequest.titulo();
         this.descricao = compromissoDtoRequest.descricao();
-        this.data_hora = compromissoDtoRequest.data_hora();
+        this.dataHora = compromissoDtoRequest.data_hora();
         this.status = compromissoDtoRequest.status();
         this.categoria = categoria;
     }
